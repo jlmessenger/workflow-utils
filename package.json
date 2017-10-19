@@ -1,0 +1,14 @@
+{
+  "name": "workflow-utils",
+  "version": "0.1.0",
+  "description": "Workflow util helpers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jlmessenger <jlmessenger@users.noreply.github.com>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "node-fetch": "^1.7.3"
+  }
+}
