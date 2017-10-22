@@ -14,4 +14,8 @@ function partialProps (obj, ...args) {
   }, {})
 }
 
-module.exports = { partialProps, without }
+function getHostname (urlStr) {
+  return urlStr.match(/^https?:\/\/([\w-\.]+)\/?/)[1]
+}
+
+module.exports = { partialProps, without, getHostname }
