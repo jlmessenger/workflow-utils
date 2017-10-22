@@ -206,9 +206,9 @@ function cachedLogin (getCredential) {
     })
 }
 
-function withSession (getCredential) {
+function setupJenkinsApi (getCredential) {
   return cachedLogin(getCredential)
     .then((headers) => partialProps(methods, headers))
 }
 
-module.exports = withSession
+module.exports = setupJenkinsApi

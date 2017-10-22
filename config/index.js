@@ -9,6 +9,7 @@ module.exports = Object.assign({
   // githubBaseUrl: 'https://github.com',
   // credentialPrefill: {
   //   'github.com:username': 'jlmessenger',
+  //   'github.ua.com:token': 'xxxxxxxxxxxxxxxxxx', // via https://github.com/settings/tokens
   //   'underarmour.atlassian.net:username': 'jlmessenger@users.noreply.github.com'
   // },
   credentials: {

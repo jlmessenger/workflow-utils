@@ -65,9 +65,9 @@ function cachedLogin (credentials) {
     })
 }
 
-function withSession (getCredential) {
+function setupJiraApi (getCredential) {
   return cachedLogin(getCredential)
     .then((headers) => partialProps(methods, headers))
 }
 
-module.exports = withSession
+module.exports = setupJiraApi

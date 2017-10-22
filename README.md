@@ -13,6 +13,7 @@ Reference `config/index.js` for a list of values to set.
    Each API method should accept 'headers' as it's first argument, which will contain the auth cookie data.  
    Full API details can be found in [JIRA REST Docs](https://docs.atlassian.com/jira/REST/server/).
  * `jenkins-api.js` - Login and api methods for Jenkins
+ * `github-api.js` - Token based api methods for GitHub
  * `notification.js` - Desktop notification for OSX using automator CLI
  * `get-credential.js` - Tool to prompt for missing credentials on the command line
 
