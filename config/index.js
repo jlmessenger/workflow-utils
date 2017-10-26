@@ -17,8 +17,8 @@ module.exports = Object.assign({
     showNotification: true
   },
   cookieCache: {
-    jira: '.cookie.jira.json',
-    jenkins: '.cookie.jenkins.json',
-    github: '.cookie.github.json',
+    jira: '.cache/cookie.jira.json',
+    jenkins: '.cache/cookie.jenkins.json',
+    github: '.cache/cookie.github.json',
   }
 }, personalConfig)

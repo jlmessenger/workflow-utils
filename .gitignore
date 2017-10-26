@@ -1,4 +1,4 @@
-.cookie.*.json
+.cache/*.json
 config/personal.*
 node_modules/
 npm-debug.log

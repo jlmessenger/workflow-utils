@@ -1,36 +1,44 @@
-const setupJiraApi = require('./jira-api')
-const setupJenkinsApi = require('./jenkins-api')
-const setupGithubApi = require('./github-api')
-const notification = require('./notification')
-const getCredential = require('./get-credential')
+const setupJiraApi = require('./lib/api-jira')
+const setupJenkinsApi = require('./lib/api-jenkins')
+const setupGithubApi = require('./lib/api-github')
+const getCredential = require('./lib/get-credential')
 
-return Promise.all([
-  setupJiraApi(getCredential),
-  setupJenkinsApi(getCredential),
-  setupGithubApi(getCredential)
-])
-  .then(([jiraApi, jenkinsApi, githubApi]) => {
-    return jiraApi.getTicket('ABC-1234', { fields: 'summary' })
-      .then((issueData) => {
-        console.log(issueData)
-        return notification({ title: 'Ticket', subtitle: issueData.key, message: issueData.fields.summary })
-      })
-      .then(() => {
-        return jenkinsApi.branchBuild({ team: 'jlmessenger', repo: 'workflow-utils' })
-      })
-      .then((result) => {
-        console.log(result.lastBuild)
-      })
-      .then(() => {
-        return githubApi.listPRs('jlmessenger', 'workflow-utils', { state: 'open' })
-      })
-      .then((result) => {
-        console.log(result[0].title)
-      })
-  })
-  .catch((err) => {
-    console.error('ERROR:', err.stack || err)
-    console.error('url:', err.requestUrl)
-    console.error('HTTP:', err.status)
-    console.error('body:', err.body)
-  })
+function logError(err) {
+  console.error('ERROR:', err.stack || err)
+  console.error('url:', err.requestUrl)
+  console.error('status:', err.status)
+  console.error('body:', err.body)
+}
+
+function getJiraApi () {
+  return setupJiraApi(getCredential)
+}
+
+function getJenkinsApi () {
+  return setupJiraApi(getCredential)
+}
+
+function getGithubApi () {
+  return setupGithubApi(getCredential)
+}
+
+function getApis (enabledApis = {}) {
+  const {
+    jiraApi: useJira,
+    jenkinsApi: useJenkins,
+    githubApi: useGithub
+  } = Object.assign({ jiraApi: true, jenkinsApi: true, jiraApi: true }, enabledApis)
+
+  return Promise.all([
+    useJira && getJiraApi(),
+    useJenkins && getJenkinsApi(),
+    useGithub && getGithubApi()
+  ])
+    .then(([jiraApi, jenkinsApi, githubApi]) => ({
+      jiraApi,
+      jenkinsApi,
+      githubApi
+    }))
+}
+
+module.exports = Object.assign(getApis, { logError, getJiraApi, getJenkinsApi, getGithubApi })
